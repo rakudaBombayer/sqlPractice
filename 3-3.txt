@@ -1,0 +1,16 @@
+SELECT shohin_bunrui, COUNT(*) FROM Shohin GROUP BY shohin_bunrui HAVING COUNT(*) = 2;
+
+商品分類で集約したグループから含まれる2行のものを選択する
+
+
+HAVINGに書いてある場合は、SELECTにCOUNT(*)を書かなくてもいい
+→SELECT shohin_bunrui FROM Shohin GROUP BY shohin_bunrui HAVING COUNT(*) = 2;
+
+→カウント数を知りたいわけではないので書いても意味がない
+
+
+
+
+
+
+
