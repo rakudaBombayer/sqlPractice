@@ -1,0 +1,22 @@
+データの更新
+
+UPDATE Shohin SET torokubi = '2009-10-10';
+
+
+UPDATE Shohin SET hanbai_tanka = hanbai_tanka * 10
+WHERE shohin_bunrui = 'キッチン用品';
+
+UPDATE Shohin SET torokubi = NULL WHERE shohin_id = '0008';
+
+
+
+UPDATE Shohin
+
+SET hanbai_tanka = hanbai_tanka * 10,
+shiire_tanka = shiire_tanka / 2(SETはまとめて書くことができる)
+
+WHERE shohin_bunrui = 'キッチン用品';
+
+
+
+
