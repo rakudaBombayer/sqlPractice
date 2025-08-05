@@ -1,0 +1,12 @@
+データの削除
+
+DELETE FROM Shohin 
+
+デリート文を使う前に　WHERE句を確認、
+
+WHERE hanbai_tanka >= 4000;
+
+SELECT文で確認し、ミスしていたらROLLBACK
+
+
+
