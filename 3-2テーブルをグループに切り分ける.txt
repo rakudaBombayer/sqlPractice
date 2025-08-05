@@ -1,0 +1,31 @@
+テーブルをグループに切り替える
+
+SELECT shohin_bunrui, COUNT(*) FROM shohin GROUP BY shohin_bunrui; 商品分類ごとの行数を数える。
+
+
+SELECT shiire_tanka, COUNT(*) FROM Shohin GROUP BY shiire_tanka; 仕入単価ごとの行数を数える。
+
+集約キーにNULLが含まれる場合、結果にも不明行(空行)として扱われる。
+
+SELECT shiire_tankaこれを書かないと、仕入れ単価が出ないので、何のカウントかわからない
+
+
+SELECT shiire_tanka, COUNT(*) FROM Shohin WHERE shohin_bunrui ='衣服'  GROUP BY shiire_tanka;
+
+レコードが絞り込まれてから、集約(衣服で絞り込んで、仕入れ単価をグループ化)
+
+
+
+SELECT文が最後、,FROM 1番目, WHERE文が2番目、GROUP BYが3番目, HAVINGが4番目に処理される
+
+
+WHERE(データをグループ前の抽出条件)
+
+
+HAVING(データをグループあとの抽出条件)
+
+
+
+
+
+
