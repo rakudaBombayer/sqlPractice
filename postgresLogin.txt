@@ -1,0 +1,13 @@
+C:\Users\user>psql -U postgres
+ユーザ postgres のパスワード:sql
+
+方法1
+一度ログアウト、ログインアンドデーターベースをshopに切り替え
+-- psqlを終了（Ctrl+D または \q）
+\q
+
+-- shopデータベースにログイン
+psql -U postgres -d shop
+
+方法2(データベース内でshopに切り替え)
+\c shop
