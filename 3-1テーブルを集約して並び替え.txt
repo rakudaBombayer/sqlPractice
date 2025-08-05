@@ -1,0 +1,76 @@
+8/５トレーニング
+
+SELECT COUNT(*)　 FROM Shohin;　全行を数える
+
+
+SELECT COUNT(shiire_tanka)　FROM Shohin;　仕入単価のデータを数える(NULLは対象外)
+
+
+SELECT SUM(hanbai_tanka)　FROM Shohin;　販売単価の合計を求める
+
+
+SELECT SUM(hanbai_tanka), SUM(shiire_tanka)　FROM Shohin;　それぞれ合計を出した
+
+
+sum関数はNULLは無視される
+
+
+SELECT AVG(hanbai_tanka) FROM Shohin; 平均値をだす
+
+
+SELECT AVG(hanbai_tanka), AVG(shiire_tanka) FROM Shohin;
+
+avg関数もNULLを対象外
+
+SELECT MAX(hanbai_tanka), MIN(shiire_tanka) FROM Shohin; 最大値、最小値を出す
+
+NULLを除外している
+
+SELECT MAX(torokubi), MIN(torokubi) FROM Shohin; 登録日の最大値を最小値
+
+
+SELECT COUNT(DISTINCT shohin_bunrui) FROM shohin; 重複値を除外して集約関数を使う
+
+
+SELECT DISTINCT COUNT(shohin_bunrui) FROM Shohin; 行数を数えてから値の重複を除くことになる。
+→SELECT  COUNT(shohin_bunrui) FROM Shohin;　と変わらなくなってしまう。
+
+
+SELECT SUM(hanbai_tanka), SUM(DISTINCT hanbai_tanka) FROM Shohin; DISTINCTの有無による動作の違い
+
+重複値を除外して集約するには、集約関数の引数にDISTINCTをつける
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
