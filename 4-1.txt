@@ -76,6 +76,8 @@ INSERT INTO ShohinBunrui (
 GROUP BY shohin_bunrui;
 
 
+INSERT文内のSELECT文では、WHERE句やGROUP BY句など、どんなSQL構文も使うことができる
+
 
 
 
