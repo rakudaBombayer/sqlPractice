@@ -1,0 +1,168 @@
+複雑な問い合わせ
+
+
+ビュー
+
+CREATE VIEW ShohinSum (shohin_bunrui, cnt_shohin)
+
+AS(登録できる↓)
+-------------------------------------------
+SELECT shohin_bunrui, COUNT(*)
+FROM Shohin
+GROUP BY shohin_bunrui;
+--------------------------------------------
+
+→select shohin_bunrui, cnt_shohin FROM ShohinSum;
+
+→select * from ShohinSum;
+
+で使えるようになる
+
+ビューに対して集約関数が使っている
+select COUNT(*) from ShohinSum;
+
+
+
+
+CREATE VIEW ShohinSumJim (shohin_bunrui, cnt_shohin)
+AS
+SELECT shohin_bunrui, cnt_shohin
+FROM ShohinSum
+WHERE shohin_bunrui = '事務用品';
+
+
+SELECT shohin_bunrui, cnt_shohin FROM ShohinSumJim;
+
+
+VIEWの更新
+
+CREATE VIEW ShohinJim (shohin_id, shohin_mei, shohin_bunrui, hanbai_tanka, shiire_tanka, torokubi)
+AS
+SELECT *
+FROM Shohin
+WHERE shohin_bunrui = '事務用品';
+
+
+INSERT INTO ShohinJim VALUES ('0009', '印鑑', '事務用品', 95, 10, '2009-11-30');
+
+
+ DROP VIEW ShohinSum;
+DROP VIEW ShohinSum CASCADE;(依存しているオブジェクトごと削除する、小さい滝、連続した物事の意味)
+
+
+
+
+サブクエリ
+SELECT shohin_bunrui, cnt_shohin
+FROM (SELECT shohin_bunrui, COUNT(*) AS cnt_shohin
+FROM Shohin GROUP BY shohin_bunrui
+) AS ShohinSum;
+
+
+SELECT shohin_bunrui, cnt_shohin
+FROM (SELECT *
+FROM (SELECT shohin_bunrui, COUNT(*) AS cnt_shohin FROM Shohin 
+GROUP BY shohin_bunrui) AS ShohinSum
+WHERE cnt_shohin = 4)
+AS ShohinSum2;
+
+
+スカラサブクエリ
+
+SELECT shohin_id, shohin_mei, hanbai_tanka
+FROM Shohin
+WHERE hanbai_tanka > (SELECT AVG(hanbai_tanka) FROM Shohin);
+
+WHERE hanbai_tanka　>(この部分は)
+単体を取り出すクエリを書かないといけない
+SELECT AVG(hanbai_tanka) FROM Shohin;
+        avg
+--------------------
+ 62827.857142857143
+
+
+サブクエリ基本どこでも使えるが、どこにかけるかはサブクエリは状況によって変わる、
+
+5-13
+SELECT shohin_id,
+	shohin_mei,
+	hanbai_tanka,
+(SELECT AVG(hanbai_tanka) FROM Shohin) AS avg_tanka
+FROM Shohin;
+
+5-14
+SELECT shohin_bunrui, AVG(hanbai_tanka)
+FROM Shohin
+GROUP BY shohin_bunrui
+HAVING AVG(hanbai_tanka) > (SELECT AVG(hanbai_tanka) FROM Shohin);
+
+
+相関サブクエリ
+
+
+SELECT shohin_bunrui, shohin_mei, hanbai_tanka FROM Shohin AS S1
+WHERE hanbai_tanka > (SELECT AVG(hanbai_tanka)
+FROM Shohin AS S2
+WHERE S1.shohin_bunrui = S2.shohin_bunrui
+GROUP BY shohin_bunrui);
+
+
+問題5-1
+CREATE VIEW VIEWRensyu5_1 (shohin_mei, hanbai_tanka, torokubi)
+AS
+SELECT shohin_mei, hanbai_tanka, torokubi
+FROM Shohin
+WHERE hanbai_tanka >= 1000 AND torokubi >= '2009-09-20';
+
+
+SELECT * FROM VIEWRensyu5_1;
+
+
+問題5-2
+
+INSERT INTO VIEWRensyu5_1 VALUES('ナイフ', 300, '2009-11-02');
+
+結果
+ERROR:  列"shohin_id"内のNULL値はNOT NULL制約違反です
+DETAIL:  失敗した行は(null, ナイフ, null, 300, null, 2009-11-02)を含みます
+
+
+問題5-3
+
+SELECT shohin_id, shohin_mei, shohin_bunrui, hanbai_tanka, 
+
+(SELECT AVG(hanbai_tanka) FROM Shohin) AS hanbai_tanka_all
+FROM Shohin;
+
+
+問題5-4
+
+CREATE VIEW AvgTankaByBunrui (shohin_id, shohin_mei, shohin_bunrui, hanbai_tanka,  avg_hanbai_tanka)
+AS
+SELECT shohin_id, shohin_mei, shohin_bunrui, hanbai_tanka, 
+
+(SELECT AVG(hanbai_tanka) FROM Shohin) AS avg_hanbai_tanka
+FROM Shohin;
+
+
+SELECT * FROM AvgTankaByBunrui;
+------------------------------------------------------------------------------------------
+
+CREATE VIEW AvgTankaByBunrui2
+AS
+SELECT
+  shohin_bunrui,
+  AVG(hanbai_tanka) AS avg_hanbai_tanka
+FROM Shohin
+GROUP BY shohin_bunrui;
+
+もう一度
+
+
+
+
+
+
+
+
+
