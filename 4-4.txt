@@ -1,0 +1,111 @@
+トランザクション
+
+BEGIN TRANSACTION;
+
+
+UPDATE Shohin
+	SET hanbai_tanka = hanbai_tanka - 1000
+WHERE shohin_mei = 'カッターシャツ';
+
+
+UPDATE Shohin
+	SET hanbai_tanka = hanbai_tanka + 1000
+WHERE shohin_mei = 'Tシャツ';
+
+
+COMMIT;
+
+
+4-3問題
+CREATE TABLE ShohinSaeki
+(shohin_id CHAR(4) NOT NULL,
+ shohin_mei VARCHAR(100) NOT NULL,
+
+hanbai_tanka INTEGER,
+
+shiire_tanka INTEGER,
+
+saeki        INTEGER,
+torokubi DATE ,
+ PRIMARY KEY (shohin_id));
+
+INSERT INTO ShohinSaeki (
+  shohin_id, shohin_mei, 
+  hanbai_tanka, 
+	
+shiire_tanka, saeki
+)
+VALUES (
+  '0001', 'Tシャツ', '1000', 500, 500);
+
+
+INSERT INTO ShohinSaeki (
+  shohin_id, shohin_mei, 
+  hanbai_tanka, 
+	
+shiire_tanka, saeki
+)
+VALUES (
+  '0002', '穴あけパンチ', '500', 320, 180);
+
+INSERT INTO ShohinSaeki (
+  shohin_id, shohin_mei, 
+  hanbai_tanka, 
+	
+shiire_tanka, saeki
+)
+VALUES (
+  '0003', 'カッターシャツ', '4000', 2800, 1200);
+
+
+
+INSERT INTO ShohinSaeki (
+  shohin_id,
+  shohin_mei,
+  hanbai_tanka,
+  shiire_tanka,
+  saeki
+)
+SELECT
+  shohin_id,
+  shohin_mei,
+  hanbai_tanka,
+  shiire_tanka,
+  hanbai_tanka - shiire_tanka
+FROM Shohin;
+
+
+4-4問題
+
+BEGIN;
+
+UPDATE Shohinsaeki
+ SET hanbai_tanka = hanbai_tanka -1000
+WHERE shohin_mei = 'カッターシャツ';
+
+
+UPDATE Shohinsaeki
+ SET saeki = saeki -1000
+WHERE shohin_mei = 'カッターシャツ';
+
+COMMIT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
