@@ -351,6 +351,113 @@ flowerID, supplierID, shiire_price
 )
 VALUES (20, 2, 500);
 
+３．花仕入マスターテーブルを元に、各花の現在の仕入先と仕入単価を一覧表示する。
+
+SELECT 
+  F.flowername,
+  F.nameeng,
+  S.suppliername,
+  S.address,
+  S.phone,
+  P.shiire_price
+FROM 
+  flowers AS F
+INNER JOIN 
+  suppliers AS S ON F.supplierid = S.supplierid
+INNER JOIN 
+  price AS P ON F.flowerid = P.flowerid AND S.supplierid = P.supplierid;
+
+
+
+４．仕入先が一社しかない花を一覧表示する。
+
+
+ SELECT 
+  F.flowerid,
+  F.flowername,
+  F.nameeng,
+  S.suppliername,
+  S.address,
+  S.phone,
+  P.shiire_price
+FROM 
+  flowers AS F
+INNER JOIN 
+  price AS P ON F.flowerid = P.flowerid
+INNER JOIN 
+  suppliers AS S ON P.supplierid = S.supplierid
+WHERE 
+  F.flowerid IN (
+    SELECT flowerid
+    FROM price
+    GROUP BY flowerid
+    HAVING COUNT(supplierid) = 1
+  );
+５．仕入先が複数ある花を一覧表示する
+
+
+SELECT 
+  F.flowername,
+  F.nameeng,
+  S.suppliername,
+  S.address,
+  S.phone,
+  P.shiire_price
+FROM 
+  flowers AS F
+INNER JOIN 
+  price AS P ON F.flowerid = P.flowerid
+INNER JOIN 
+  suppliers AS S ON P.supplierid = S.supplierid
+WHERE 
+  F.flowerid IN (
+    SELECT flowerid
+    FROM price
+    GROUP BY flowerid
+    HAVING COUNT(supplierid) >= 2
+  );
+
+
+
+６．現在仕入れている単価より安く仕入れられる花と仕入先を表示する
+
+
+
+SELECT 
+  F.flowername,
+  F.nameeng,
+  S1.suppliername AS curr_supplier,
+  S2.suppliername AS low_supplier,
+  P1.shiire_price AS curr_price,
+  P2.shiire_price AS low_price
+
+FROM 
+  flowers AS F
+INNER JOIN 
+  price AS P1 ON F.flowerid = P1.flowerid
+INNER JOIN 
+  suppliers AS S1 ON P1.supplierid = S1.supplierid
+INNER JOIN 
+  price AS P2 ON F.flowerid = P2.flowerid
+INNER JOIN 
+  suppliers AS S2 ON P2.supplierid = S2.supplierid
+WHERE 
+  P2.shiire_price < P1.shiire_price
+  AND P1.supplierid = F.supplierid; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
