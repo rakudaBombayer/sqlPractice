@@ -1,0 +1,375 @@
+psql -U postgres -d exercise エクササイズデータベースに接続
+
+
+仕入先マスター
+CREATE TABLE suppliers
+( 
+supplierID INTEGER  NOT NULL,
+supplierName VARCHAR(128) NOT NULL,
+address VARCHAR(256) ,
+phone    CHAR(20) ,
+PRIMARY KEY (supplierID)
+);
+
+
+花仕入マスター
+CREATE TABLE flowers
+(
+flowerID INTEGER NOT NULL,
+flowerName VARCHAR(64) NOT NULL,
+nameEng  VARCHAR(64) ,
+supplierID INTEGER  NOT NULL,
+PRIMARY KEY (flowerID)
+);
+
+
+仕入単価マスター
+CREATE TABLE price
+(
+flowerID INTEGER NOT NULL,
+supplierID INTEGER  NOT NULL,
+shiire_price INTEGER DEFAULT 0,
+PRIMARY KEY (flowerID, supplierID)
+);
+
+2.データ登録(suppliers)
+
+INSERT INTO suppliers(
+supplierID, supplierName, address, phone
+)
+VALUES (1, '高宮農園', '福岡市南区高宮1丁目', '092-526-XXXX');
+
+
+INSERT INTO suppliers(
+supplierID, supplierName, address, phone
+)
+VALUES (2, '薬院農園', '福岡市中央区薬院2丁目', '092-716-XXXX');
+
+
+INSERT INTO suppliers(
+supplierID, supplierName, address, phone
+)
+VALUES (3, '赤坂花壇', '福岡市中央区赤坂1丁目', '092-716-XXXX');
+
+
+INSERT INTO suppliers(
+supplierID, supplierName, address, phone
+)
+VALUES (4, 'ガーデン市崎', '福岡市南区市崎3丁目', '092-526-XXXX');
+
+
+INSERT INTO suppliers(
+supplierID, supplierName, address, phone
+)
+VALUES (5, '花の桜坂', '福岡市中央区桜坂1丁目', '092-716-XXXX');
+
+
+INSERT INTO suppliers(
+supplierID, supplierName, address, phone
+)
+VALUES (6, '万博ガーデン', '大阪府吹田市千里', '06-123-XXXX');
+
+
+データ登録(flowers)
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (1, '紫陽花', 'Hydrangea', 2);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (2, 'アネモネ', 'Poppy anemone', 3);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (3, 'カーネーション', 'Carnation', 4);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (4, 'ガーベラ', 'Transvaal', 1);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (5, 'カモミール', 'Sweet false chamomilee', 6);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (6, 'カラー', 'Calla', 2);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (7, 'キンモクセイ', 'Fragrant olive', 6);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (8, 'クロッカス', 'Crocus', 4);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (9, '月下美人', 'Dutchman pipe cactus', 1);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (10, '秋桜', 'Cosmos', 6);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (11, 'サクラ', 'Cherryblossem', 2);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (12, 'シクラメン', 'Cyclamen', 3);
+
+次ページ
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (13, 'スミレ', 'Violet', 6);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (14, 'セントポーリア', 'African violet', 1);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (15, 'ツバキ', 'Camellia', 5);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (16, '薔薇', 'Rose', 3);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (17, '向日葵', 'Sunflower', 5);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (18, 'ポインセチア', 'Poinsettia', 1);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (19, 'マーガレット', 'Marguerite', 6);
+
+
+INSERT INTO flowers(
+flowerID, flowerName, nameEng, supplierID
+)
+VALUES (20, 'ラベンダー', 'Lavender', 2);
+
+
+
+データ登録(price)
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (1, 2, 500);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (2, 3, 400);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (3, 4, 250);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (4, 1, 200);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (5, 6, 500);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (5, 3, 450);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (6, 2, 800);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (7, 6, 600);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (8, 4, 1200);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (9, 1, 2000);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (9, 3, 1800);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (10, 6, 500);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (11, 2, 2500);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (12, 3, 1000);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (12, 4, 1050);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (13, 6, 300);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (14, 1, 900);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (14, 3, 890);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (14, 5, 880);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (15, 5, 1000);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (16, 3, 300);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (17, 5, 200);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (18, 1, 1500);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (19, 5, 820);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (19, 6, 800);
+
+
+INSERT INTO price(
+flowerID, supplierID, shiire_price
+)
+VALUES (20, 2, 500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
